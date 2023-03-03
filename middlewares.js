@@ -14,12 +14,12 @@ const delayActionMiddleware = (store) => (next) => (action) => {
   return next(action);
 };
 
-const asyncDataLoadMiddleware = (store) => (next) => async (action) => {
-  if (action.type == "allTodo/fetchTodo") {
-    return;
+const fetchAsyncMiddleware = (store) => (next) => async (action) => {
+  if (typeof action === "function") {
+    return action(store.dispatch, store.getState);
   }
 
   return next(action);
 };
 
-module.exports = { delayActionMiddleware, asyncDataLoadMiddleware };
+module.exports = { delayActionMiddleware, fetchAsyncMiddleware };
