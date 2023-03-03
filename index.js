@@ -1,7 +1,9 @@
 // Import Redux functions and middlewares
 
 const { createStore, applyMiddleware } = require("redux");
-const { delayActionMiddleware, fetchAsyncMiddleware } = require("./middlewares");
+const { default: thunk } = require("redux-thunk");
+// const { delayActionMiddleware, fetchAsyncMiddleware } = require("./middlewares");
+// deleted as using the redux thunk
 
 // Import the fetchTodos utility function
 const { fetchTodos } = require("./utlitiesFunctions/fetchtodos");
@@ -28,10 +30,8 @@ const todoReducer = (state = initialState, action) => {
 };
 
 // Create the store and apply the middlewares
-const store = createStore(
-  todoReducer,
-  applyMiddleware(delayActionMiddleware, fetchAsyncMiddleware)
-);
+const store = createStore(todoReducer, applyMiddleware(thunk));
+// applyMiddleware(delayActionMiddleware, fetchAsyncMiddleware) // deleted as using the redux thunk
 
 // subscribe to state changes
 
